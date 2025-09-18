@@ -14,28 +14,24 @@ const client = new Groq({
 
 app.post('/generate', async (req, res) => {
   try {
-    // Prompt dengan instruksi format dan bahasa dinamis
     const prompt = `
-Tolong buatkan bagian ini dengan format berikut:
+Please create the following parts in this format:
 
-Judul: [judul SEO singkat dan menarik minimal 5 kata, mengandung kata kunci utama]
-Hashtag: [3 hashtag relevan yang dipisah spasi, tanpa tanda koma]
-Deskripsi: [deskripsi SEO minimal 250 kata, kata kunci utama disebut 2-4 kali secara alami, berisi call-to-action]
+Title: [a short, attractive SEO title with at least 5 words, including the main keyword]
+Hashtags: [3 relevant hashtags separated by spaces, without commas]
+Description: [an SEO description of at least 250 words, mentioning the main keyword 2-4 times naturally, including a call-to-action]
 
-Bahasa yang digunakan sesuaikan dengan bahasa konten di bawah ini. Jika sebagian besar konten berbahasa Indonesia, jawab dalam bahasa Indonesia. Jika berbahasa Inggris, jawab dalam bahasa Inggris.
+Use the language based on the content below. If the content is mostly in English, respond in English. If it is mostly in Indonesian, respond in Indonesian.
 
-Berikut adalah konten yang harus dianalisis:
+Here is the content to analyze:
 
 ${req.body.prompt}
     `;
-
     const response = await client.chat.completions.create({
       model: 'meta-llama/llama-4-maverick-17b-128e-instruct',
       messages: [{ role: 'user', content: prompt }],
     });
-
     res.json({ result: response.choices[0].message.content });
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error calling Groq API' });
