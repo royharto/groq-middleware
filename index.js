@@ -14,13 +14,15 @@ const client = new Groq({
 
 app.post('/generate', async (req, res) => {
   try {
-    // Sebelum kirim ke Groq AI, bentuk prompt sesuai syarat SEO YouTube
+    // Prompt dengan instruksi format dan bahasa dinamis
     const prompt = `
-[Selalu Berikan sesuaikan jawabannya dalam bahasa yang sama, jika url yang diinput berbahasa inggris maka jawab dengan bahasa inggris] Tolong buatkan bagian ini dengan format berikut:
+Tolong buatkan bagian ini dengan format berikut:
 
 Judul: [judul SEO singkat dan menarik minimal 5 kata, mengandung kata kunci utama]
 Hashtag: [3 hashtag relevan yang dipisah spasi, tanpa tanda koma]
 Deskripsi: [deskripsi SEO minimal 250 kata, kata kunci utama disebut 2-4 kali secara alami, berisi call-to-action]
+
+Bahasa yang digunakan sesuaikan dengan bahasa konten di bawah ini. Jika sebagian besar konten berbahasa Indonesia, jawab dalam bahasa Indonesia. Jika berbahasa Inggris, jawab dalam bahasa Inggris.
 
 Berikut adalah konten yang harus dianalisis:
 
