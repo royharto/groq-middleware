@@ -14,12 +14,26 @@ const client = new Groq({
 
 app.post('/generate', async (req, res) => {
   try {
-    const { prompt } = req.body;
+    // Sebelum kirim ke Groq AI, bentuk prompt sesuai syarat SEO YouTube
+    const prompt = `
+Tolong buatkan bagian ini dengan format berikut:
+
+Judul: [judul SEO singkat dan menarik minimal 5 kata, mengandung kata kunci utama]
+Hashtag: [3 hashtag relevan yang dipisah spasi, tanpa tanda koma]
+Deskripsi: [deskripsi SEO minimal 250 kata, kata kunci utama disebut 2-4 kali secara alami, berisi call-to-action]
+
+Berikut adalah konten yang harus dianalisis:
+
+${req.body.prompt}
+    `;
+
     const response = await client.chat.completions.create({
       model: 'meta-llama/llama-4-maverick-17b-128e-instruct',
       messages: [{ role: 'user', content: prompt }],
     });
+
     res.json({ result: response.choices[0].message.content });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error calling Groq API' });
