@@ -16,7 +16,7 @@ app.post('/generate', async (req, res) => {
   try {
     // Sebelum kirim ke Groq AI, bentuk prompt sesuai syarat SEO YouTube
     const prompt = `
-Tolong buatkan bagian ini dengan format berikut:
+[Selalu Berikan Jawaban dalam bahasa inggris] Tolong buatkan bagian ini dengan format berikut:
 
 Judul: [judul SEO singkat dan menarik minimal 5 kata, mengandung kata kunci utama]
 Hashtag: [3 hashtag relevan yang dipisah spasi, tanpa tanda koma]
